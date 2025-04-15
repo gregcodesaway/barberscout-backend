@@ -53,21 +53,22 @@ barbers = [
     }
 ]
 
-from difflib import SequenceMatcher
-
+# Stronger fuzzy match logic
 def matches_query(query, text):
     query = query.lower()
     text = text.lower()
 
-    # Check for exact word overlap or fuzzy match
+    # Direct substring match
     if query in text:
         return True
 
-    # Split into words for partial match
-    query_words = query.split()
-    for word in query_words:
-        if word in text or SequenceMatcher(None, word, text).ratio() > 0.7:
+    # Word-level partial match
+    for word in query.split():
+        if word in text:
             return True
+        if SequenceMatcher(None, word, text).ratio() > 0.75:
+            return True
+
     return False
 
 @app.route("/barbers", methods=["GET"])
@@ -88,5 +89,5 @@ def get_barbers():
     return jsonify(barbers)
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))  # <-- This fixes the Render port binding issue
+    port = int(os.environ.get("PORT", 5000))  # Render binds to dynamic ports
     app.run(host="0.0.0.0", port=port)
