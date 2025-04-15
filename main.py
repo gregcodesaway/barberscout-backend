@@ -1,6 +1,7 @@
-#!/usr/bin/env python
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
+from difflib import SequenceMatcher
+import os
 
 app = Flask(__name__)
 CORS(app)
@@ -21,7 +22,7 @@ barbers = [
         "id": 2,
         "name": "Prime Barbershop",
         "address": "Nieuwendijk 85, 1012 MC Amsterdam",
-        "services": ["Haircut", "Beard Trim", "Hair Coloring","Fade"],
+        "services": ["Haircut", "Beard Trim", "Hair Coloring", "Fade"],
         "rating": 4.9,
         "speaks_english": True,
         "opening_hours": "Mon–Sun: 09:30–20:00",
@@ -32,7 +33,7 @@ barbers = [
         "id": 3,
         "name": "City Center Barbershop",
         "address": "Stationsplein 41M, 1012 AB Amsterdam",
-        "services": ["Haircut", "Beard Trim", "Hot Towel Shave","Fade"],
+        "services": ["Haircut", "Beard Trim", "Hot Towel Shave", "Fade"],
         "rating": 4.6,
         "speaks_english": True,
         "opening_hours": "Mon–Fri: 08:00–21:00, Sat: 09:00–20:00, Sun: 10:00–20:00",
@@ -43,7 +44,7 @@ barbers = [
         "id": 4,
         "name": "Cut Throat Amsterdam",
         "address": "Beursplein 5, 1012 JW Amsterdam",
-        "services": ["Haircut", "Beard Trim", "Hot Towel Shave", "Facial","Fade"],
+        "services": ["Haircut", "Beard Trim", "Hot Towel Shave", "Facial", "Fade"],
         "rating": 4.7,
         "speaks_english": True,
         "opening_hours": "Mon: 09:00–19:00, Tue: 09:00–21:00, Wed–Thu: 09:00–20:00, Fri: 08:00–19:00, Sat: 08:00–18:00, Sun: 11:00–18:00",
@@ -51,9 +52,6 @@ barbers = [
         "image_url": "http://cutthroatbarber.nl/wp-content/uploads/2022/05/cutthroat-logo.png"
     }
 ]
-
-from flask import request
-from difflib import SequenceMatcher
 
 def similar(a, b):
     return SequenceMatcher(None, a.lower(), b.lower()).ratio() > 0.6
@@ -75,8 +73,6 @@ def get_barbers():
 
     return jsonify(barbers)
 
-import os
-
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
+    port = int(os.environ.get("PORT", 5000))  # <-- This fixes the Render port binding issue
     app.run(host="0.0.0.0", port=port)
