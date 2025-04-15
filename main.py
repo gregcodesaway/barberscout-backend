@@ -53,12 +53,14 @@ barbers = [
     }
 ]
 
-def similar(a, b):
-    return SequenceMatcher(None, a.lower(), b.lower()).ratio() > 0.6
+def similar(query, target):
+    query_words = query.lower().split()
+    target = target.lower()
+    return any(word in target for word in query_words)
 
 @app.route("/barbers", methods=["GET"])
 def get_barbers():
-    query = request.args.get("q", "").lower()
+    query = request.args.get("q", "").strip().lower()
 
     if query:
         results = []
