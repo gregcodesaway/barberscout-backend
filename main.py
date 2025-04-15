@@ -53,10 +53,22 @@ barbers = [
     }
 ]
 
-def similar(query, target):
-    query_words = query.lower().split()
-    target = target.lower()
-    return any(word in target for word in query_words)
+from difflib import SequenceMatcher
+
+def matches_query(query, text):
+    query = query.lower()
+    text = text.lower()
+
+    # Check for exact word overlap or fuzzy match
+    if query in text:
+        return True
+
+    # Split into words for partial match
+    query_words = query.split()
+    for word in query_words:
+        if word in text or SequenceMatcher(None, word, text).ratio() > 0.7:
+            return True
+    return False
 
 @app.route("/barbers", methods=["GET"])
 def get_barbers():
@@ -66,9 +78,9 @@ def get_barbers():
         results = []
         for barber in barbers:
             if (
-                similar(query, barber["name"]) or
-                similar(query, barber["address"]) or
-                any(similar(query, service) for service in barber["services"])
+                matches_query(query, barber["name"]) or
+                matches_query(query, barber["address"]) or
+                any(matches_query(query, service) for service in barber["services"])
             ):
                 results.append(barber)
         return jsonify(results)
