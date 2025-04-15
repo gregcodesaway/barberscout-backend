@@ -51,8 +51,27 @@ barbers = [
     }
 ]
 
+from flask import request
+from difflib import SequenceMatcher
+
+def similar(a, b):
+    return SequenceMatcher(None, a.lower(), b.lower()).ratio() > 0.6
+
 @app.route("/barbers", methods=["GET"])
 def get_barbers():
+    query = request.args.get("q", "").lower()
+
+    if query:
+        results = []
+        for barber in barbers:
+            if (
+                similar(query, barber["name"]) or
+                similar(query, barber["address"]) or
+                any(similar(query, service) for service in barber["services"])
+            ):
+                results.append(barber)
+        return jsonify(results)
+
     return jsonify(barbers)
 
 if __name__ == "__main__":
