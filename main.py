@@ -10,6 +10,7 @@ barbers = [
     {
         "id": 1,
         "name": "BRUHN Barbershop",
+        "city": "amsterdam",
         "address": "Albert Cuypstraat 156E, 1073 BK Amsterdam",
         "services": ["Haircut", "Beard Trim", "Hot Towel Shave", "Styling", "Fade", "Skin Fade"],
         "rating": 4.7,
@@ -23,6 +24,7 @@ barbers = [
     {
         "id": 2,
         "name": "Prime Barbershop",
+        "city": "amsterdam",
         "address": "Nieuwendijk 85, 1012 MC Amsterdam",
         "services": ["Haircut", "Beard Trim", "Hair Coloring", "Fade", "Skin Fade", "Walk-ins"],
         "rating": 4.9,
@@ -36,6 +38,7 @@ barbers = [
     {
         "id": 3,
         "name": "City Center Barbershop",
+        "city": "amsterdam",
         "address": "Stationsplein 41M, 1012 AB Amsterdam",
         "services": ["Haircut", "Beard Trim", "Hot Towel Shave", "Fade", "Skin Fade"],
         "rating": 4.9,
@@ -49,8 +52,9 @@ barbers = [
     {
         "id": 4,
         "name": "Cut Throat Amsterdam",
+        "city": "amsterdam",
         "address": "Beursplein 5, 1012 JW Amsterdam",
-        "services": ["Haircut", "Beard Trim", "Hot Towel Shave", "Facial", "Fade", "Skin Fade","Hair wash"],
+        "services": ["Haircut", "Beard Trim", "Hot Towel Shave", "Facial", "Fade", "Skin Fade", "Hair wash"],
         "rating": 4.6,
         "speaks_english": True,
         "walk_ins": False,
@@ -62,19 +66,21 @@ barbers = [
     {
         "id": 5,
         "name": "Rogue Razor Barbershop",
+        "city": "amsterdam",
         "address": "Mauritskade 112 H, 1093 RT, Amsterdam",
-        "services": ["Haircut", "Beard Trim", "Hot Towel Shave", "Fade", "Skin Fade","Q-Ball","Hair wash"],
+        "services": ["Haircut", "Beard Trim", "Hot Towel Shave", "Fade", "Skin Fade", "Q-Ball", "Hair wash"],
         "rating": 4.8,
         "speaks_english": True,
         "walk_ins": False,
         "student_discount": True,
-        "opening_hours": "Mon: ClOSED, Tue: 10:00–19:00, Wed–Thu: 11:00–20:00, Fri: 10:00–18:30, Sat: 10:00–18:30, Sun: CLOSED",
+        "opening_hours": "Mon: CLOSED, Tue: 10:00–19:00, Wed–Thu: 11:00–20:00, Fri: 10:00–18:30, Sat: 10:00–18:30, Sun: CLOSED",
         "contact": "https://roguerazor.nl/",
-        "image_url": "https://impro.usercontent.one/appid/oneComWsb/domain/roguerazor.nl/media/roguerazor.nl/onewebmedia/RR-logo-new___serialized1.png?etag=%229248-621e1e62%22&sourceContentType=image%2Fpng&ignoreAspectRatio&resize=564%2B461&extract=25%2B0%2B538%2B460"
+        "image_url": "https://impro.usercontent.one/appid/oneComWsb/domain/roguerazor.nl/media/roguerazor.nl/onewebmedia/RR-logo-new___serialized1.png"
     },
     {
         "id": 6,
         "name": "Mr Elias Barbershop",
+        "city": "amsterdam",
         "address": "Linnaeusstraat 60h, 1092 CM, Amsterdam",
         "services": ["Haircut", "Beard Trim", "Hot Towel Shave", "Fade", "Skin Fade", "Buzz Cut", "Hair wash"],
         "rating": 4.9,
@@ -86,36 +92,29 @@ barbers = [
         "image_url": "https://mrelias.nl/wp-content/uploads/2020/11/logo.png"
     },
     {
-  "id": 7,
-  "name": "HIS Amsterdam",
-  "address": "Utrechtsedwarsstraat 86, 1017 WH Amsterdam",
-  "services": ["Beard Trim","Haircut","Hot Towel","Facial","Beard Colouring","Eye Mask","Face Mask","Peel Mask","Body Wax"],
-  "rating": 4.5,
-  "speaks_english": True,
-  "walk_ins": False,
-  "student_discount": False,
-  "opening_hours": "Mon: Closed, Tues: 10:00–19:00, Weds: 10:00–19:00, Thurs: 10:00–21:00, Fri: 10:00–19:00, Sat: 10:00–19:00, Sun: 12:00–19:00",
-  "contact": "https://www.hisamsterdam.nl",
-  "image_url": "https://www.hisamsterdam.nl/wp-content/uploads/2023/02/his-amsterdam-logo-new-02.svg"
-}
+        "id": 7,
+        "name": "HIS Amsterdam",
+        "city": "amsterdam",
+        "address": "Utrechtsedwarsstraat 86, 1017 WH Amsterdam",
+        "services": ["Beard Trim", "Haircut", "Hot Towel", "Facial", "Beard Colouring", "Eye Mask", "Face Mask", "Peel Mask", "Body Wax"],
+        "rating": 4.5,
+        "speaks_english": True,
+        "walk_ins": False,
+        "student_discount": False,
+        "opening_hours": "Mon: Closed, Tues: 10:00–19:00, Weds: 10:00–19:00, Thurs: 10:00–21:00, Fri: 10:00–19:00, Sat: 10:00–19:00, Sun: 12:00–19:00",
+        "contact": "https://www.hisamsterdam.nl",
+        "image_url": "https://www.hisamsterdam.nl/wp-content/uploads/2023/02/his-amsterdam-logo-new-02.svg"
+    }
 ]
 
-# Stronger fuzzy match logic
 def matches_query(query, text):
     query = query.lower()
     text = text.lower()
-
-    # Direct substring match
     if query in text:
         return True
-
-    # Word-level partial match
     for word in query.split():
-        if word in text:
+        if word in text or SequenceMatcher(None, word, text).ratio() > 0.75:
             return True
-        if SequenceMatcher(None, word, text).ratio() > 0.75:
-            return True
-
     return False
 
 @app.route("/barbers", methods=["GET"])
@@ -136,8 +135,6 @@ def get_barbers():
 
     return jsonify(results)
 
-    return jsonify(barbers)
-
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))  # Render binds to dynamic ports
+    port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
