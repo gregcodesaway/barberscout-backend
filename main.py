@@ -121,17 +121,20 @@ def matches_query(query, text):
 @app.route("/barbers", methods=["GET"])
 def get_barbers():
     query = request.args.get("q", "").strip().lower()
+    city = request.args.get("city", "").strip().lower()
 
-    if query:
-        results = []
-        for barber in barbers:
-            if (
-                matches_query(query, barber["name"]) or
-                matches_query(query, barber["address"]) or
-                any(matches_query(query, service) for service in barber["services"])
-            ):
-                results.append(barber)
-        return jsonify(results)
+    results = []
+    for barber in barbers:
+        if city and barber.get("city", "").lower() != city:
+            continue
+        if not query or (
+            matches_query(query, barber["name"]) or
+            matches_query(query, barber["address"]) or
+            any(matches_query(query, service) for service in barber["services"])
+        ):
+            results.append(barber)
+
+    return jsonify(results)
 
     return jsonify(barbers)
 
