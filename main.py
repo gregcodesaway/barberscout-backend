@@ -104,7 +104,20 @@ barbers = [
         "opening_hours": "Mon: Closed, Tues: 10:00–19:00, Weds: 10:00–19:00, Thurs: 10:00–21:00, Fri: 10:00–19:00, Sat: 10:00–19:00, Sun: 12:00–19:00",
         "contact": "https://www.hisamsterdam.nl",
         "image_url": "https://www.hisamsterdam.nl/wp-content/uploads/2023/02/his-amsterdam-logo-new-02.svg"
-    }
+    },
+    {   "id": 8,
+        "name": "Schorem Barbier",
+        "city": "rotterdam",
+        "address": "Nieuwe Binnenweg 104, 3015 BD Rotterdam",
+        "services": ["Haircut", "Beard Trim", "Hot Towel Shave", "Classic Cuts", "Styling"],
+        "rating": 4.6,
+        "speaks_english": True,
+        "walk_ins": False,
+        "student_discount": False,
+        "opening_hours": "Tue–Sat: 08:00–17:15, Sun–Mon: Closed",
+        "contact": "https://www.schorembarbier.nl",
+        "image_url": "https://schorembarbier.nl/wp-content/uploads/2019/12/logo.png.webp"
+    },
 ]
 
 def matches_query(query, text):
