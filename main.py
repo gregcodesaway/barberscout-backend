@@ -2,10 +2,12 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from difflib import SequenceMatcher
 import os
+import json
 
 app = Flask(__name__)
 CORS(app)
 
+# ---- Barbers Data ----
 barbers = [
     {
         "id": 1,
@@ -105,7 +107,8 @@ barbers = [
         "contact": "https://www.hisamsterdam.nl",
         "image_url": "https://www.hisamsterdam.nl/wp-content/uploads/2023/02/his-amsterdam-logo-new-02.svg"
     },
-    {   "id": 8,
+    {   
+        "id": 8,
         "name": "Schorem Barbier",
         "city": "rotterdam",
         "address": "Nieuwe Binnenweg 104, 3015 BD Rotterdam",
@@ -117,9 +120,10 @@ barbers = [
         "opening_hours": "Tue–Sat: 08:00–17:15, Sun–Mon: Closed",
         "contact": "https://www.schorembarbier.nl",
         "image_url": "https://schorembarbier.nl/wp-content/uploads/2019/12/logo.png.webp"
-    },
+    }
 ]
 
+# ---- Matching Logic ----
 def matches_query(query, text):
     query = query.lower()
     text = text.lower()
@@ -130,6 +134,7 @@ def matches_query(query, text):
             return True
     return False
 
+# ---- Barbers API ----
 @app.route("/barbers", methods=["GET"])
 def get_barbers():
     query = request.args.get("q", "").strip().lower()
@@ -148,6 +153,38 @@ def get_barbers():
 
     return jsonify(results)
 
+# ---- Blogs API ----
+@app.route("/blogs", methods=["GET"])
+def get_all_blogs():
+    try:
+        with open("blogs/amsterdam.json", "r", encoding="utf-8") as f:
+            blogs = json.load(f)
+        return jsonify(blogs)
+    except FileNotFoundError:
+        return jsonify([])
+
+@app.route("/blogs/<slug>", methods=["GET"])
+def get_blog_by_slug(slug):
+    try:
+        with open("blogs/amsterdam.json", "r", encoding="utf-8") as f:
+            blogs = json.load(f)
+        blog = next((b for b in blogs if b["slug"] == slug), None)
+        if blog:
+            return jsonify(blog)
+        return jsonify({"error": "Blog not found"}), 404
+    except FileNotFoundError:
+        return jsonify({"error": "Blog file not found"}), 500
+
+@app.route("/blogs/city/<city>", methods=["GET"])
+def get_blogs_by_city(city):
+    try:
+        with open(f"blogs/{city.lower()}.json", "r", encoding="utf-8") as f:
+            blogs = json.load(f)
+        return jsonify(blogs)
+    except FileNotFoundError:
+        return jsonify([])
+
+# ---- App Runner ----
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
