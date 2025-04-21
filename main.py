@@ -21,79 +21,103 @@ barbers = [
         "contact": "https://www.bruhn.nl",
         "image_url": "https://cdn.prod.website-files.com/642843be0da449a9eaf4accd/651c1dfdaaca2da0c4742ec0_IMG_0392-p-500.webp"
     },
-    # ... (remaining barbers unchanged)
-]
-
-blogs = [
     {
-        "id": 1,
-        "title": "Welcome to BarberScout Amsterdam",
-        "slug": "welcome-to-barberscout",
-        "author": "Team BarberScout",
-        "date": "2025-04-19",
+        "id": 2,
+        "name": "Prime Barbershop",
         "city": "amsterdam",
-        "image_url": "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/BarberScout%20Logo%20v2-egYCXVrjwzUdVSDJ1RYpij2xBGbUbK.png",
-        "content": """
-Finding a great barber is personal.  
-Finding one who gets your style and speaks your language? That can be a mission — especially in a city as international as Amsterdam.
-
-That's where BarberScout comes in.
-
-We're building Amsterdam's first dedicated directory of **English-speaking** and **walk-in friendly** barbershops, so you can stop guessing, scrolling, or settling for whatever’s closest. Whether you're new to the city, visiting for a few weeks, or just looking for a fresh fade without the language barrier — we've got you.
-
-### Why We Started BarberScout
-
-After countless awkward haircuts and “lost in translation” appointments, we realized something:  
-There’s no central place to find barbers who speak English and deliver sharp, consistent results.
-
-So we decided to build one.
-
-BarberScout is here to:
-
-✅ Help you find reliable, English-speaking barbers in your neighborhood  
-✅ Make it easy to see services, prices, and availability — all in one place  
-✅ Support local barbers by giving them the visibility they deserve  
-
-### What's Live Now (And What's Coming)
-
-Right now, we’re focused on Amsterdam.  
-You’ll find a growing list of English-speaking barbers with verified info and direct booking links.
-
-Coming soon:
-
-💳 Featured listings for barbers who want to stand out  
-💬 Real reviews from the local community  
-✈️ Expansion to other major cities across Europe  
-
-### Are You a Barber?
-
-We’d love to feature you — especially if your barbershop:
-
-- Speaks English fluently  
-- Offers consistent, high-quality cuts  
-- Welcomes walk-ins or same-day appointments  
-- Wants to reach more international clients
-
-👉 Submit your details here.  
-It’s free to get listed, and we’ll do the heavy lifting to get you noticed.
-
-### Help Us Grow
-
-BarberScout is brand new — and your support means the world.
-
-Here’s how you can help:
-
-💈 Know a great barbershop? Tell them to get listed  
-📣 Share this site with friends and expats in Amsterdam  
-🌍 Follow us on socials for updates, new listings, and barber spotlights
-
-Thanks for being here — we’re just getting started.  
-Stay fresh,  
-**The BarberScout Team**
-
-✂️ [www.barberscout.co](https://www.barberscout.co)
-        """
-    }
+        "address": "Nieuwendijk 85, 1012 MC Amsterdam",
+        "services": ["Haircut", "Beard Trim", "Hair Coloring", "Fade", "Skin Fade", "Walk-ins"],
+        "rating": 4.9,
+        "speaks_english": True,
+        "walk_ins": True,
+        "student_discount": False,
+        "opening_hours": "Mon–Sun: 09:30–20:00",
+        "contact": "https://primebarbershop.nl",
+        "image_url": "https://primebarbershop.nl/wp-content/uploads/2023/09/cropped-Prime-Barber-shop-01.png"
+    },
+    {
+        "id": 3,
+        "name": "City Center Barbershop",
+        "city": "amsterdam",
+        "address": "Stationsplein 41M, 1012 AB Amsterdam",
+        "services": ["Haircut", "Beard Trim", "Hot Towel Shave", "Fade", "Skin Fade"],
+        "rating": 4.9,
+        "speaks_english": True,
+        "walk_ins": False,
+        "student_discount": False,
+        "opening_hours": "Mon–Fri: 08:00–21:00, Sat: 09:00–20:00, Sun: 10:00–20:00",
+        "contact": "https://citycenterbarbershop.nl",
+        "image_url": "https://citycenterbarbershop.nl/wp-content/uploads/2024/03/citycenterbarber-white-1.webp"
+    },
+    {
+        "id": 4,
+        "name": "Cut Throat Amsterdam",
+        "city": "amsterdam",
+        "address": "Beursplein 5, 1012 JW Amsterdam",
+        "services": ["Haircut", "Beard Trim", "Hot Towel Shave", "Facial", "Fade", "Skin Fade", "Hair wash"],
+        "rating": 4.6,
+        "speaks_english": True,
+        "walk_ins": False,
+        "student_discount": True,
+        "opening_hours": "Mon: 09:00–19:00, Tue: 09:00–21:00, Wed–Thu: 09:00–20:00, Fri: 08:00–19:00, Sat: 08:00–18:00, Sun: 11:00–18:00",
+        "contact": "https://cutthroatbarber.nl",
+        "image_url": "http://cutthroatbarber.nl/wp-content/uploads/2022/05/cutthroat-logo.png"
+    },
+    {
+        "id": 5,
+        "name": "Rogue Razor Barbershop",
+        "city": "amsterdam",
+        "address": "Mauritskade 112 H, 1093 RT, Amsterdam",
+        "services": ["Haircut", "Beard Trim", "Hot Towel Shave", "Fade", "Skin Fade", "Q-Ball", "Hair wash"],
+        "rating": 4.8,
+        "speaks_english": True,
+        "walk_ins": False,
+        "student_discount": True,
+        "opening_hours": "Mon: CLOSED, Tue: 10:00–19:00, Wed–Thu: 11:00–20:00, Fri: 10:00–18:30, Sat: 10:00–18:30, Sun: CLOSED",
+        "contact": "https://roguerazor.nl/",
+        "image_url": "https://impro.usercontent.one/appid/oneComWsb/domain/roguerazor.nl/media/roguerazor.nl/onewebmedia/RR-logo-new___serialized1.png"
+    },
+    {
+        "id": 6,
+        "name": "Mr Elias Barbershop",
+        "city": "amsterdam",
+        "address": "Linnaeusstraat 60h, 1092 CM, Amsterdam",
+        "services": ["Haircut", "Beard Trim", "Hot Towel Shave", "Fade", "Skin Fade", "Buzz Cut", "Hair wash"],
+        "rating": 4.9,
+        "speaks_english": True,
+        "walk_ins": False,
+        "student_discount": False,
+        "opening_hours": "Mon-Fri: 10:00–18:30, Sat: 09:30–18:30, Sun: CLOSED",
+        "contact": "https://mrelias.nl/",
+        "image_url": "https://mrelias.nl/wp-content/uploads/2020/11/logo.png"
+    },
+    {
+        "id": 7,
+        "name": "HIS Amsterdam",
+        "city": "amsterdam",
+        "address": "Utrechtsedwarsstraat 86, 1017 WH Amsterdam",
+        "services": ["Beard Trim", "Haircut", "Hot Towel", "Facial", "Beard Colouring", "Eye Mask", "Face Mask", "Peel Mask", "Body Wax"],
+        "rating": 4.5,
+        "speaks_english": True,
+        "walk_ins": False,
+        "student_discount": False,
+        "opening_hours": "Mon: Closed, Tues: 10:00–19:00, Weds: 10:00–19:00, Thurs: 10:00–21:00, Fri: 10:00–19:00, Sat: 10:00–19:00, Sun: 12:00–19:00",
+        "contact": "https://www.hisamsterdam.nl",
+        "image_url": "https://www.hisamsterdam.nl/wp-content/uploads/2023/02/his-amsterdam-logo-new-02.svg"
+    },
+    {   "id": 8,
+        "name": "Schorem Barbier",
+        "city": "rotterdam",
+        "address": "Nieuwe Binnenweg 104, 3015 BD Rotterdam",
+        "services": ["Haircut", "Beard Trim", "Hot Towel Shave", "Classic Cuts", "Styling"],
+        "rating": 4.6,
+        "speaks_english": True,
+        "walk_ins": False,
+        "student_discount": False,
+        "opening_hours": "Tue–Sat: 08:00–17:15, Sun–Mon: Closed",
+        "contact": "https://www.schorembarbier.nl",
+        "image_url": "https://schorembarbier.nl/wp-content/uploads/2019/12/logo.png.webp"
+    },
 ]
 
 def matches_query(query, text):
@@ -123,17 +147,6 @@ def get_barbers():
             results.append(barber)
 
     return jsonify(results)
-
-@app.route("/blogs", methods=["GET"])
-def get_blogs():
-    return jsonify(blogs)
-
-@app.route("/blogs/<slug>", methods=["GET"])
-def get_blog_by_slug(slug):
-    blog = next((b for b in blogs if b["slug"] == slug), None)
-    if blog:
-        return jsonify(blog)
-    return jsonify({"error": "Blog not found"}), 404
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
